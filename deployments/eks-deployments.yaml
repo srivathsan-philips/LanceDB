@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lancedb
+  namespace: lancedb-test
+  labels:
+    app: lancedb
+    env: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lancedb
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: lancedb
+    spec:
+      tolerations:
+        - key: cpu_8
+          operator: Exists
+          effect: NoSchedule
+      containers:
+        - name: lancedb
+          image: >-
+            385371276479.dkr.ecr.us-east-1.amazonaws.com/poc/lancedb:latest
+          ports:
+            - containerPort: 9000
+              protocol: TCP
+
+  
